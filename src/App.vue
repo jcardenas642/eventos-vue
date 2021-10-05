@@ -1,4 +1,6 @@
 <template>
+  <!-- <img src="assets/logo.png" alt=""> -->
+  <h1>Menú</h1>
   <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
