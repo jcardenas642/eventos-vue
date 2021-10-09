@@ -24,3 +24,11 @@
             </form>
         </div>
 </template>
+
+<script>
+export default {
+    mounted(){
+        document.title="Acerca de"
+    }
+}
+</script>

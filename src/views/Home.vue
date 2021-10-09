@@ -26,16 +26,20 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </div>        
     </main>
+    <footer>
+        <router-link :to="{name:'Eventos'}">Ir a eventos</router-link>
+    </footer>
 </template>
 
 <script>
 // @ is an alias to /src
+import EventoService from "@/services/eventos.js";
 
 export default {
     mounted(){
-        this.listaEventos = this.$route.params.datos;
+        this.listaEventos = EventoService.obtenerTodos();
         console.log(this.listaEventos);
     },
     title:"prueba",

@@ -1,5 +1,11 @@
 <template>
   <header>
+      <img id="logo" src="@/assets/logo.png" alt="">
+  <h1>Menú</h1>
+  <div id="nav">
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link>
+  </div>
         <h1> {{titulo}}</h1>
     </header>
     <main>
@@ -38,15 +44,17 @@
                         <th>MESEROS</th>
                         <th>PLATOS</th>
                         <th>TOTAL</th>
+                        <th>OPCIONES</th>
                     </tr>
                 </thead>
                 <tbody id="datos_eventos">
-                    <tr v-for="unEvento in listaEventos" :key="unEvento">
+                    <tr v-for="unEvento, i in listaEventos" :key="unEvento">
                       <td>{{unEvento.cliente}}</td>
                       <td>{{unEvento.salon.nombre}}</td>
                       <td>{{unEvento.meseros}}</td>
                       <td>{{unEvento.platos}}</td>
                       <td>{{unEvento.total}}</td>
+                      <td><button @click.prevent="eliminar(i)">Eliminar</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -56,67 +64,29 @@
 
 <script>
 // @ is an alias to /src
+import EventoService from "@/services/eventos.js"
+import SalonService from "@/services/salones.js"
 
 export default {
+    mounted(){
+        document.title="Gestión de Eventos";
+        this.listaEventos=EventoService.obtenerTodos();
+        this.listaSalones=SalonService.obtenerTodos();
+        this.evento=EventoService.obtenerEventoActual();
+        if (this.evento.cliente!="") {
+            this.limpiarFormulario();
+        }
+    },
     title:"prueba",
   data(){
     return {
       titulo:"Gestión de eventos - Eventos",
-      listaSalones:[
-          {"nombre":"Normal", 
-                    "precio":1000000, 
-                    "extra_mesero":150000,
-                    "cantidad_meseros":1, 
-                    "plato":50000
-                },
-        {"nombre":"Grande", 
-                    "precio":2000000, 
-                    "extra_mesero":100000, 
-                    "cantidad_meseros":4,
-                    "plato":40000
-                }
-      ],
-      listaEventos:[
-    {
-        cliente:"Jose",
-        documento:"741963852",
-        meseros:2,
-        platos:150,
-        salon:{"nombre":"Normal", 
-                    "precio":1000000, 
-                    "extra_mesero":150000,
-                    "cantidad_meseros":1, 
-                    "plato":50000
-                },
-        total:3200000,
-    },
-    {
-        cliente:"Laura",
-        documento:"852753951",
-        meseros:5,
-        platos:50,
-        salon:{"nombre":"Grande", 
-                    "precio":2000000, 
-                    "extra_mesero":100000, 
-                    "cantidad_meseros":4,
-                    "plato":40000
-                },
-        total:3200000
-    },
-],
-      evento:{
-          cliente:"",
-          documento:"",
-          salon:{},
-          meseros:0,
-          platos:0,
-          total:0
-      },
+      listaSalones:[],
+      listaEventos:[],
+      evento:{},
       salon:0,
       extra:false,
       comida:false,
-
-
     };
   },
   name: 'Eventos',
@@ -124,6 +94,25 @@ export default {
     
   },
   methods:{
+
+      eliminar(posicion){
+          this.listaEventos.splice(posicion, 1);
+      },
+
+      limpiarFormulario(){
+          this.evento = {
+          cliente:"",
+          documento:"",
+          salon:{},
+          meseros:0,
+          platos:0,
+          total:0
+      }
+      this.salon=0;
+      this.extra=false;
+      this.comida=false;
+
+      },
       procesarInformacion(){
           this.evento.salon = this.listaSalones[this.salon];
           if (this.extra) {
@@ -144,7 +133,9 @@ export default {
 
     this.listaEventos.push(this.evento);
 
-        this.$router.push({name:"Home", params:{datos:this.listaEventos}});
+    this.limpiarFormulario();
+
+    this.$router.push({name:"Home"});
 
       }
   }

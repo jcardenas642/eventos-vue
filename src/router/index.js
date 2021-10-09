@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-import Eventos from '../views/Eventos.vue'
+import Home from '../views/Home'
+import Eventos from '../views/Eventos'
+import Pagina from "../views/Pagina"
 
 const routes = [
   {
@@ -21,6 +22,11 @@ const routes = [
     name: 'Eventos',
     component: Eventos
   },
+  {
+    path: "/pagina",
+    name:"Pagina",
+    component:Pagina
+  }
 ]
 
 const router = createRouter({
