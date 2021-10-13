@@ -43,6 +43,7 @@
                         <th>SALON</th>
                         <th>MESEROS</th>
                         <th>PLATOS</th>
+                        <th>FOTO</th>
                         <th>TOTAL</th>
                         <th>OPCIONES</th>
                     </tr>
@@ -53,6 +54,9 @@
                       <td>{{unEvento.salon.nombre}}</td>
                       <td>{{unEvento.meseros}}</td>
                       <td>{{unEvento.platos}}</td>
+                      <td>
+                          <img :src="unEvento.imagen" :alt="unEvento.platos">
+                        </td>
                       <td>{{unEvento.total}}</td>
                       <td><button @click.prevent="eliminar(i)">Eliminar</button></td>
                     </tr>

@@ -1,5 +1,8 @@
+import axios from "axios";
+
 class SalonService{
     salones=[];
+    url ="http://localhost:8000/salon"
 
     constructor(){
         this.salones=[
@@ -21,6 +24,6 @@ class SalonService{
     }
 
     obtenerTodos(){
-        return this.salones;
+        return axios.get(`${this.url}/todos`);
     }
 }export default new SalonService();

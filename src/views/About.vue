@@ -23,12 +23,37 @@
                 <button onclick="procesarInformacion()" type="button">Agregar Evento</button>
             </form>
         </div>
+
+        <ul>
+            <li v-for="unSalon in listaSalones" :key="unSalon.id">
+                {{unSalon.nombre}}
+            </li>
+        </ul>
+
 </template>
 
 <script>
+
+import SalonService from "@/services/salones";
+
 export default {
     mounted(){
         document.title="Acerca de"
+        SalonService.obtenerTodos().then(
+            (respuesta)=>{
+                console.log(respuesta.data);
+                this.listaSalones=respuesta.data;
+            }
+        ).catch(
+            (error)=>{
+                
+            }
+        );
+    },
+    data(){
+        return{
+            listaSalones:[]
+        };
     }
 }
 </script>
