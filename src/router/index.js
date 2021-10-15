@@ -3,6 +3,7 @@ import Home from '../views/Home'
 import Eventos from '../views/Eventos'
 import Pagina from "../views/Pagina"
 import Login from "@/views/Login"
+import isAutenticado from './auth'
 
 const routes = [
   {
@@ -21,7 +22,8 @@ const routes = [
   {
     path: '/',
     name: 'Eventos',
-    component: Eventos
+    component: Eventos,
+    beforeEnter: [isAutenticado]
   },
   {
     path: "/pagina",
