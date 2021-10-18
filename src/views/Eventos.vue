@@ -127,6 +127,8 @@ export default {
       procesarInformacion(){
           this.evento.salon = this.listaSalones[this.salon];
           this.evento.servicio = this.listaServicios[this.servicio];
+          this.evento.cliente = this.cliente;
+          
           if (this.extra) {
               this.evento.meseros+= this.evento.salon.cantidadMeseros;
           } else {
